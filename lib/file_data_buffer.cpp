@@ -60,9 +60,8 @@ void file_data_buffer::init_gpgme_data()
 {
     gpgme_error_t ret = gpgme_data_new_from_fd(&data_, fd_);
 
-    if (ret != GPG_ERR_NO_ERROR) {
+    if (ret != GPG_ERR_NO_ERROR)
         throw std::runtime_error(std::string("file data buffer creation failed: ") + egpg_gpgme_strerror(ret));
-    }
 }
 
 file_data_buffer::~file_data_buffer()
