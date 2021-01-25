@@ -97,12 +97,6 @@ std::string key::email() const
 }
 
 
-keys::keys()
-{
-    // nothing
-}
-
-
 keys::~keys()
 {
     for(size_t i = 0; i < keys_.size(); ++i) {

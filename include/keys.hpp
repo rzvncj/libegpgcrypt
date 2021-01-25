@@ -48,7 +48,7 @@ typedef std::vector<key> keys_t;
 class keys {
 
 public:
-    keys();
+    keys() = default;
     ~keys();
 
     keys(const keys&) = delete;
