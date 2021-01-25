@@ -27,46 +27,31 @@ void key::unref_key(gpgme_key_t raw_key)
 
 bool key::revoked() const
 {
-    if(key_)
-        return key_->revoked;
-
-    return false;
+    return key_ ? key_->revoked : false;
 }
 
 
 bool key::expired() const
 {
-    if(key_)
-        return key_->expired;
-
-    return false;
+    return key_ ? key_->expired : false;
 }
 
 
 bool key::invalid() const
 {
-    if(key_)
-        return key_->invalid;
-
-    return false;
+    return key_ ? key_->invalid : false;
 }
 
 
 bool key::disabled() const
 {
-    if(key_)
-        return key_->disabled;
-
-    return false;
+    return key_ ? key_->disabled : false;
 }
 
 
 bool key::can_encrypt() const
 {
-    if(key_)
-        return key_->can_encrypt;
-
-    return false;
+    return key_ ? key_->can_encrypt : false;
 }
 
 
@@ -121,10 +106,7 @@ void keys::add(gpgme_key_t key)
 
 gpgme_key_t* keys::raw_keys()
 {
-    if(keys_.empty())
-        return nullptr;
-
-    return &keys_[0];
+    return keys_.empty() ? nullptr : &keys_[0];
 }
 
 
