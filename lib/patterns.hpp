@@ -14,13 +14,12 @@ public:
     patterns();
     ~patterns();
 
+    patterns(const patterns&) = delete;
+    patterns& operator=(const patterns&) = delete;
+
 public:
     void add(const std::string& pattern);
     const char** char_patterns();
-
-private:
-    patterns(const patterns&);
-    patterns& operator=(const patterns&);
 
 private:
     std::vector<char *> char_patterns_;
