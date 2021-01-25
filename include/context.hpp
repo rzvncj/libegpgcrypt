@@ -20,6 +20,9 @@ public:
             const std::string& keys_directory = "");
     ~context();
 
+    context(const context&) = delete;
+    context& operator=(const context&) = delete;
+
 public:
     gpgme_ctx_t ctx() const { return ctx_; }
     gpgme_protocol_t protocol() const { return protocol_; }
@@ -30,10 +33,6 @@ public:
 
     key find_key(const std::string& email, bool secret_key = false,
                  bool for_encryption = true);
-
-private:
-    context(const context&);
-    context& operator=(const context&);
 
 private:
     gpgme_protocol_t protocol_;

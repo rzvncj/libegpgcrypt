@@ -23,6 +23,9 @@ public:
     data_buffer() = default;
     virtual ~data_buffer() = default;
 
+    data_buffer(const data_buffer&) = delete;
+    data_buffer& operator=(const data_buffer&) = delete;
+
 public:
     gpgme_data_t data() const { return data_; }
 
@@ -34,10 +37,6 @@ public:
     void cat(const data_buffer& from);
 
     std::string content() const;
-
-private: // Copy not allowed
-    data_buffer(const data_buffer&);
-    data_buffer& operator=(const data_buffer&);
 
 protected:
     gpgme_data_t data_;

@@ -51,15 +51,14 @@ public:
     keys();
     ~keys();
 
+    keys(const keys&) = delete;
+    keys& operator=(const keys&) = delete;
+
 public:
     void add(gpgme_key_t key);
     gpgme_key_t* raw_keys();
 
     bool empty() const;
-
-private:
-    keys(const keys&);
-    keys& operator=(const keys&);
 
 private:
     std::vector<gpgme_key_t> keys_;
