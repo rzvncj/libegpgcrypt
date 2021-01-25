@@ -84,9 +84,9 @@ std::string key::email() const
 
 keys::~keys()
 {
-    for(size_t i = 0; i < keys_.size(); ++i) {
-        if(keys_[i])
-            gpgme_key_unref(keys_[i]);
+    for(auto&& k : keys_) {
+        if(k)
+            gpgme_key_unref(k);
     }
 }
 
