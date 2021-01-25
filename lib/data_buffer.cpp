@@ -6,20 +6,6 @@
 namespace egpgcrypt {
 
 
-data_buffer::data_buffer()
-{
-    // nothing, but I need this constructor because
-    // otherwise the default constructor is inhibited
-    // by the private declaration of the copy constructor.
-}
-
-
-data_buffer::~data_buffer()
-{
-    // nothing
-}
-
-
 bool data_buffer::read(std::string& buffer) const
 {
     char raw_buffer[4096];

@@ -20,8 +20,8 @@ public:
     };
 
 public:
-    data_buffer();
-    virtual ~data_buffer();
+    data_buffer() = default;
+    virtual ~data_buffer() = default;
 
 public:
     gpgme_data_t data() const { return data_; }
