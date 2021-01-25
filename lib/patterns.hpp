@@ -11,7 +11,7 @@ namespace egpgcrypt {
 class patterns {
 
 public:
-    patterns();
+    patterns() = default;
     ~patterns();
 
     patterns(const patterns&) = delete;

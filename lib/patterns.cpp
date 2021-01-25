@@ -7,12 +7,6 @@
 namespace egpgcrypt {
 
 
-patterns::patterns()
-{
-    // nothing
-}
-
-
 patterns::~patterns()
 {
     std::for_each(char_patterns_.begin(), char_patterns_.end(), free);
