@@ -1,8 +1,8 @@
 #ifndef __KEYS_HPP_INCLUDED__
 #define __KEYS_HPP_INCLUDED__
 
-#include <boost/shared_ptr.hpp>
 #include <gpgme.h>
+#include <memory>
 #include <safe_egpg_object.hpp>
 #include <string>
 #include <vector>
@@ -35,10 +35,9 @@ public:
 private:
     // Custom deleter.
     static void unref_key(gpgme_key_t raw_key);
-    typedef boost::shared_ptr<_gpgme_key> key_ptr_t;
 
 private:
-    key_ptr_t key_;
+    std::shared_ptr<_gpgme_key> key_;
 };
 
 

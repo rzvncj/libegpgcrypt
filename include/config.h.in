@@ -1,11 +1,5 @@
 /* include/config.h.in.  Generated from configure.ac by autoheader.  */
 
-/* define if the Boost library is available */
-#undef HAVE_BOOST
-
-/* define if the Boost::Locale library is available */
-#undef HAVE_BOOST_LOCALE
-
 /* define if the compiler supports basic C++14 syntax */
 #undef HAVE_CXX14
 
