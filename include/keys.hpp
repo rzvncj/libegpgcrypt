@@ -7,9 +7,7 @@
 #include <string>
 #include <vector>
 
-
 namespace egpgcrypt {
-
 
 class key : private safe_egpg_object {
 
@@ -20,13 +18,13 @@ public:
     // No need for operator=(), key_ is a smart pointer.
 
 public:
-    bool revoked() const;
-    bool expired() const;
-    bool invalid() const;
-    bool disabled() const;
-    bool secret() const;
-    bool can_encrypt() const;
-    long expires() const;
+    bool        revoked() const;
+    bool        expired() const;
+    bool        invalid() const;
+    bool        disabled() const;
+    bool        secret() const;
+    bool        can_encrypt() const;
+    long        expires() const;
     std::string email() const;
 
 public:
@@ -40,9 +38,7 @@ private:
     std::shared_ptr<_gpgme_key> key_;
 };
 
-
 typedef std::vector<key> keys_t;
-
 
 class keys {
 
@@ -54,7 +50,7 @@ public:
     keys& operator=(const keys&) = delete;
 
 public:
-    void add(gpgme_key_t key);
+    void         add(gpgme_key_t key);
     gpgme_key_t* raw_keys();
 
     bool empty() const;
@@ -63,22 +59,6 @@ private:
     std::vector<gpgme_key_t> keys_;
 };
 
-
 }
 
-
 #endif // __KEYS_HPP_INCLUDED__
-
-
-/*
-  Local Variables:
-  mode: c++
-  c-basic-offset: 4
-  tab-width: 4
-  c-indent-comments-syntactically-p: t
-  c-tab-always-indent: t
-  indent-tabs-mode: nil
-  End:
-*/
-
-// vim:shiftwidth=4:autoindent:tabstop=4:expandtab:softtabstop=4

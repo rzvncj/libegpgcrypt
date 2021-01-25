@@ -3,10 +3,8 @@
 #include <getopt.h>
 #include <iostream>
 
-
 using namespace egpgcrypt;
 using namespace std;
-
 
 void print_help(const string& program_name)
 {
@@ -19,7 +17,6 @@ void print_help(const string& program_name)
          << flush;
 }
 
-
 void split_string(const string& input, set<string>& output)
 {
     string delimiters = " ,";
@@ -30,36 +27,29 @@ void split_string(const string& input, set<string>& output)
 
     do {
         current = next + 1;
-        next = input.find_first_of(delimiters, current);
+        next    = input.find_first_of(delimiters, current);
         output.insert(input.substr(current, next - current));
 
     } while (next != string::npos);
 }
 
-
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     try {
 
-        const char* const short_options = "hi:o:a:s";
-        const struct option long_options[] = {
-            { "help",      0, nullptr, 'h' },
-            { "output",    1, nullptr, 'o' },
-            { "input",     1, nullptr, 'i' },
-            { "addresses", 1, nullptr, 'a' },
-            { "smime",     0, nullptr, 's' },
-            { nullptr,     0, nullptr,  0  }
-        };
+        const char* const   short_options = "hi:o:a:s";
+        const struct option long_options[]
+            = {{"help", 0, nullptr, 'h'},      {"output", 1, nullptr, 'o'}, {"input", 1, nullptr, 'i'},
+               {"addresses", 1, nullptr, 'a'}, {"smime", 0, nullptr, 's'},  {nullptr, 0, nullptr, 0}};
 
-        string input_filename, output_filename, str_addresses;
+        string           input_filename, output_filename, str_addresses;
         gpgme_protocol_t protocol = GPGME_PROTOCOL_OpenPGP;
-        int next_option;
+        int              next_option;
 
         do {
 
-            next_option = getopt_long(argc, argv, short_options,
-                                      long_options, nullptr);
-            switch(next_option) {
+            next_option = getopt_long(argc, argv, short_options, long_options, nullptr);
+            switch (next_option) {
 
             case 'o':
                 output_filename = optarg;
@@ -87,10 +77,9 @@ int main(int argc, char **argv)
                 return 0;
             }
 
-        } while(next_option != -1);
+        } while (next_option != -1);
 
-        if(output_filename.empty() || input_filename.empty()
-           || str_addresses.empty()) {
+        if (output_filename.empty() || input_filename.empty() || str_addresses.empty()) {
             print_help(argv[0]);
             return 0;
         }
@@ -107,24 +96,10 @@ int main(int argc, char **argv)
         crypto c(protocol);
         c.encrypt(email_addresses, expired_emails, in, out);
 
-    } catch(const exception& e) {
+    } catch (const exception& e) {
         cerr << "ERROR: " << e.what() << endl;
         return 1;
     }
 
     return 0;
 }
-
-
-/*
-  Local Variables:
-  mode: c++
-  c-basic-offset: 4
-  tab-width: 4
-  c-indent-comments-syntactically-p: t
-  c-tab-always-indent: t
-  indent-tabs-mode: nil
-  End:
-*/
-
-// vim:shiftwidth=4:autoindent:tabstop=4:expandtab:softtabstop=4

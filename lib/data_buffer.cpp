@@ -2,9 +2,7 @@
 #include <stdexcept>
 #include <support.hpp>
 
-
 namespace egpgcrypt {
-
 
 bool data_buffer::read(std::string& buffer) const
 {
@@ -12,57 +10,48 @@ bool data_buffer::read(std::string& buffer) const
 
     ssize_t ret = gpgme_data_read(data_, raw_buffer, sizeof(raw_buffer) - 1);
 
-    if(ret == 0)
+    if (ret == 0)
         return false; // done reading
 
-    if(ret < 0)
-        throw std::runtime_error(std::string("read error: ")
-                                 + egpg_gpgme_strerror(ret));
+    if (ret < 0)
+        throw std::runtime_error(std::string("read error: ") + egpg_gpgme_strerror(ret));
 
     buffer.assign(raw_buffer, ret);
     return true;
 }
-
 
 void data_buffer::write(const std::string& buffer)
 {
     ssize_t total = buffer.length(), written = 0;
 
     do {
-        ssize_t ret = gpgme_data_write(data_, buffer.c_str() + written,
-                                       total - written);
-        if(ret < 0)
-            throw std::runtime_error(std::string("write error: ")
-                                     + egpg_gpgme_strerror(ret));
+        ssize_t ret = gpgme_data_write(data_, buffer.c_str() + written, total - written);
+        if (ret < 0)
+            throw std::runtime_error(std::string("write error: ") + egpg_gpgme_strerror(ret));
         written += ret;
 
-    } while(written < total);
+    } while (written < total);
 }
-
 
 void data_buffer::seek(off_t off, seek_pos pos) const
 {
-    if(gpgme_data_seek(data_, off, pos) < 0)
-        throw std::runtime_error(std::string("seek error: ")
-                                 + egpg_errno_strerror(errno));
+    if (gpgme_data_seek(data_, off, pos) < 0)
+        throw std::runtime_error(std::string("seek error: ") + egpg_errno_strerror(errno));
 }
-
 
 off_t data_buffer::tell() const
 {
     off_t cur = gpgme_data_seek(data_, 0, SEEK_CUR);
 
-    if(cur < 0)
-        throw std::runtime_error(std::string("seek error: ")
-                                 + egpg_errno_strerror(errno));
+    if (cur < 0)
+        throw std::runtime_error(std::string("seek error: ") + egpg_errno_strerror(errno));
 
     return cur;
 }
 
-
 void data_buffer::cat(const data_buffer& from)
 {
-    if(&from == this)
+    if (&from == this)
         return;
 
     off_t cur = from.tell();
@@ -71,12 +60,11 @@ void data_buffer::cat(const data_buffer& from)
 
     std::string buffer;
 
-    while(from.read(buffer))
+    while (from.read(buffer))
         write(buffer);
 
     from.seek(cur, SET);
 }
-
 
 std::string data_buffer::content() const
 {
@@ -86,7 +74,7 @@ std::string data_buffer::content() const
 
     std::string buffer, accumulated;
 
-    while(read(buffer))
+    while (read(buffer))
         accumulated.append(buffer);
 
     seek(cur, SET);
@@ -94,19 +82,4 @@ std::string data_buffer::content() const
     return accumulated;
 }
 
-
 } // namespace egpgcrypt
-
-
-/*
-  Local Variables:
-  mode: c++
-  c-basic-offset: 4
-  tab-width: 4
-  c-indent-comments-syntactically-p: t
-  c-tab-always-indent: t
-  indent-tabs-mode: nil
-  End:
-*/
-
-// vim:shiftwidth=4:autoindent:tabstop=4:expandtab:softtabstop=4

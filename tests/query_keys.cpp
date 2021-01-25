@@ -2,13 +2,11 @@
 #include <ctime>
 #include <data_buffers.hpp>
 #include <getopt.h>
-#include <keys.hpp>
 #include <iostream>
-
+#include <keys.hpp>
 
 using namespace egpgcrypt;
 using namespace std;
-
 
 void print_help(const string& program_name)
 {
@@ -19,45 +17,39 @@ void print_help(const string& program_name)
          << flush;
 }
 
-
 void print_key(const key& k)
 {
-    if(!k) {
+    if (!k) {
         cerr << "No key found.\n";
         return;
     }
 
-    long expires = k.expires();
-    struct tm *timeinfo = localtime(&expires);
+    long       expires  = k.expires();
+    struct tm* timeinfo = localtime(&expires);
 
-    cout << "Key found for address <" << k.email() << ">.\nrevoked: " << boolalpha
-        << k.revoked() << ", expired: " << k.expired() << ", invalid: "
-        << k.invalid() << ", disabled: " << k.disabled() << ", secret: "
-        << k.secret() << ", can_encrypt: " << k.can_encrypt() << "\nexpires: "
-        << asctime(timeinfo) << endl;
+    cout << "Key found for address <" << k.email() << ">.\nrevoked: " << boolalpha << k.revoked()
+         << ", expired: " << k.expired() << ", invalid: " << k.invalid() << ", disabled: " << k.disabled()
+         << ", secret: " << k.secret() << ", can_encrypt: " << k.can_encrypt() << "\nexpires: " << asctime(timeinfo)
+         << endl;
 }
 
-
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     try {
 
-        const char* const short_options = "hs:p:";
-        const struct option long_options[] = {
-            { "help",      0, nullptr, 'h' },
-            { "secret",    1, nullptr, 's' },
-            { "public",    1, nullptr, 'p' },
-            { nullptr,     0, nullptr,  0  }
-        };
+        const char* const   short_options  = "hs:p:";
+        const struct option long_options[] = {{"help", 0, nullptr, 'h'},
+                                              {"secret", 1, nullptr, 's'},
+                                              {"public", 1, nullptr, 'p'},
+                                              {nullptr, 0, nullptr, 0}};
 
         string secret_pattern, public_pattern;
-        int next_option;
+        int    next_option;
 
         do {
 
-            next_option = getopt_long(argc, argv, short_options,
-                                      long_options, nullptr);
-            switch(next_option) {
+            next_option = getopt_long(argc, argv, short_options, long_options, nullptr);
+            switch (next_option) {
 
             case 's':
                 secret_pattern = optarg;
@@ -77,9 +69,9 @@ int main(int argc, char **argv)
                 return 0;
             }
 
-        } while(next_option != -1);
+        } while (next_option != -1);
 
-        if(secret_pattern.empty() && public_pattern.empty()) {
+        if (secret_pattern.empty() && public_pattern.empty()) {
             print_help(argv[0]);
             return 0;
         }
@@ -88,34 +80,20 @@ int main(int argc, char **argv)
 
         context ctx;
 
-        if(!secret_pattern.empty()) {
+        if (!secret_pattern.empty()) {
             key k = ctx.find_key(secret_pattern, true);
             print_key(k);
         }
 
-        if(!public_pattern.empty()) {
+        if (!public_pattern.empty()) {
             key k = ctx.find_key(public_pattern);
             print_key(k);
         }
 
-    } catch(const exception& e) {
+    } catch (const exception& e) {
         cerr << "ERROR: " << e.what() << endl;
         return 1;
     }
 
     return 0;
 }
-
-
-/*
-  Local Variables:
-  mode: c++
-  c-basic-offset: 4
-  tab-width: 4
-  c-indent-comments-syntactically-p: t
-  c-tab-always-indent: t
-  indent-tabs-mode: nil
-  End:
-*/
-
-// vim:shiftwidth=4:autoindent:tabstop=4:expandtab:softtabstop=4
