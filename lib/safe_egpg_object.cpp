@@ -11,12 +11,6 @@ safe_egpg_object::safe_egpg_object()
 }
 
 
-safe_egpg_object::~safe_egpg_object()
-{
-    // nothing
-}
-
-
 } // namespace egpgcrypt
 
 

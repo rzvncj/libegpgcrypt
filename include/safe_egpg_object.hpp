@@ -14,7 +14,7 @@ public:
     safe_egpg_object();
 
     // Base class, virtual destructor
-    virtual ~safe_egpg_object();
+    virtual ~safe_egpg_object() = default;
 };
 
 
