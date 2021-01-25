@@ -42,11 +42,11 @@ int main(int argc, char **argv)
 
         const char* const short_options = "hi:a:s";
         const struct option long_options[] = {
-            { "help",      0, NULL, 'h' },
-            { "input",     1, NULL, 'i' },
-            { "addresses", 1, NULL, 'a' },
-            { "smime",     0, NULL, 's' },
-            { NULL,        0, NULL,  0  }
+            { "help",      0, nullptr, 'h' },
+            { "input",     1, nullptr, 'i' },
+            { "addresses", 1, nullptr, 'a' },
+            { "smime",     0, nullptr, 's' },
+            { nullptr,     0, nullptr,  0  }
         };
 
         string input_filename, str_addresses;
@@ -56,7 +56,7 @@ int main(int argc, char **argv)
         do {
 
             next_option = getopt_long(argc, argv, short_options,
-                                      long_options, NULL);
+                                      long_options, nullptr);
             switch(next_option) {
 
             case 'i':

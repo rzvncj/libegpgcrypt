@@ -171,7 +171,7 @@ bool crypto::verify(const data_buffer& signature,
 
     gpgme_error_t err =
         gpgme_op_verify(ctx.ctx(), signature.data(),
-                        text.data(), NULL);
+                        text.data(), nullptr);
 
     if(err != GPG_ERR_NO_ERROR)
         throw runtime_error(string("signature verification error: ") +

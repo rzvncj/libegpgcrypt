@@ -17,10 +17,10 @@ sys_initializer::sys_initializer()
 
     /* Initialize the locale environment.  */
     setlocale(LC_ALL, "");
-    gpgme_check_version(NULL);
-    gpgme_set_locale(NULL, LC_CTYPE, setlocale (LC_CTYPE, NULL));
+    gpgme_check_version(nullptr);
+    gpgme_set_locale(nullptr, LC_CTYPE, setlocale (LC_CTYPE, nullptr));
 #ifdef LC_MESSAGES
-    gpgme_set_locale(NULL, LC_MESSAGES, setlocale (LC_MESSAGES, NULL));
+    gpgme_set_locale(nullptr, LC_MESSAGES, setlocale (LC_MESSAGES, nullptr));
 #endif
 
     if(gpgme_engine_check_version(GPGME_PROTOCOL_CMS) != GPG_ERR_NO_ERROR)

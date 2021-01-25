@@ -44,10 +44,10 @@ int main(int argc, char **argv)
 
         const char* const short_options = "hs:p:";
         const struct option long_options[] = {
-            { "help",      0, NULL, 'h' },
-            { "secret",    1, NULL, 's' },
-            { "public",    1, NULL, 'p' },
-            { NULL,        0, NULL,  0  }
+            { "help",      0, nullptr, 'h' },
+            { "secret",    1, nullptr, 's' },
+            { "public",    1, nullptr, 'p' },
+            { nullptr,     0, nullptr,  0  }
         };
 
         string secret_pattern, public_pattern;
@@ -56,7 +56,7 @@ int main(int argc, char **argv)
         do {
 
             next_option = getopt_long(argc, argv, short_options,
-                                      long_options, NULL);
+                                      long_options, nullptr);
             switch(next_option) {
 
             case 's':
