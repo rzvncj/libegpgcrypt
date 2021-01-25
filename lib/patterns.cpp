@@ -35,10 +35,8 @@ void patterns::add(const std::string& pattern)
 
 const char** patterns::char_patterns()
 {
-    if(char_patterns_.empty())
-        return NULL;
-
-    return const_cast<const char **>(&char_patterns_[0]);
+    return char_patterns_.empty() ?
+        nullptr : const_cast<const char **>(&char_patterns_[0]);
 }
 
 
