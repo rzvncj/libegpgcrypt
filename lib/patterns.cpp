@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <cstdlib>
 #include <cstring>
 #include "patterns.hpp"
@@ -14,8 +15,7 @@ patterns::patterns()
 
 patterns::~patterns()
 {
-    for(size_t i = 0; i < char_patterns_.size(); ++i)
-        free(char_patterns_[i]);
+    std::for_each(char_patterns_.begin(), char_patterns_.end(), free);
 }
 
 
