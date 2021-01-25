@@ -31,9 +31,8 @@ void crypto::encrypt(const std::set<std::string>& email_addresses,
 
     expired_keys.clear();
 
-    for(std::set<std::string>::const_iterator i = email_addresses.begin();
-        i != email_addresses.end(); ++i)
-        ptns.add(*i);
+    for(auto&& email_address : email_addresses)
+        ptns.add(email_address);
 
     // Output should be ASCII armoured (I'm working with email)
     if(protocol_ == GPGME_PROTOCOL_OpenPGP)
@@ -105,9 +104,8 @@ void crypto::sign(const std::set<std::string>& email_addresses,
     patterns ptns;
     unsigned keys_added = 0;
 
-    for(std::set<std::string>::const_iterator i = email_addresses.begin();
-        i != email_addresses.end(); ++i)
-        ptns.add(*i);
+    for(auto&& email_address : email_addresses)
+        ptns.add(email_address);
 
     gpgme_error_t err =
         gpgme_op_keylist_ext_start(ctx.ctx(), ptns.char_patterns(),
