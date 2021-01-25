@@ -12,11 +12,9 @@ namespace egpgcrypt {
 
 inline std::string egpg_gpgme_strerror(gpgme_error_t code)
 {
-    char raw_buffer[1024];
-    raw_buffer[0] = '\0';
+    char raw_buffer[1024] = {};
 
     gpgme_strerror_r(code, raw_buffer, sizeof(raw_buffer) - 1);
-    raw_buffer[sizeof(raw_buffer) - 1] = '\0';
 
     return raw_buffer;
 }
@@ -24,11 +22,9 @@ inline std::string egpg_gpgme_strerror(gpgme_error_t code)
 
 inline std::string egpg_errno_strerror(int code)
 {
-    char raw_buffer[1024];
-    raw_buffer[0] = '\0';
+    char raw_buffer[1024] = {};
 
     strerror_r(code, raw_buffer, sizeof(raw_buffer) - 1);
-    raw_buffer[sizeof(raw_buffer) - 1] = '\0';
 
     return raw_buffer;
 }
