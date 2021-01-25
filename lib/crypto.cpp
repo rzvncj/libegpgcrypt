@@ -175,19 +175,14 @@ bool crypto::verify(const data_buffer& signature,
         throw runtime_error(string("signature verification error: ") +
                             egpg_gpgme_strerror(err));
 
-    bool ret = false;
-    gpgme_signature_t sig;
-
     gpgme_verify_result_t result = gpgme_op_verify_result(ctx.ctx());
 
-    for(sig = result->signatures; sig; sig = sig->next) {
-        if(sig->status == GPG_ERR_NO_ERROR) {
-            ret = true;
-            break;
-        }
+    for(auto sig = result->signatures; sig; sig = sig->next) {
+        if(sig->status == GPG_ERR_NO_ERROR)
+            return true;
     }
 
-    return ret;
+    return false;
 }
 
 
@@ -195,9 +190,7 @@ bool crypto::has_public_key(const std::string& email) const
 {
     context ctx(protocol_);
 
-    key k = ctx.find_key(email);
-
-    return k;
+    return ctx.find_key(email);
 }
 
 
@@ -205,9 +198,7 @@ bool crypto::has_private_key(const std::string& email) const
 {
     context ctx(protocol_);
 
-    key k = ctx.find_key(email, true, true);
-
-    return k;
+    return ctx.find_key(email, true, true);
 }
 
 
