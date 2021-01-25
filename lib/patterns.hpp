@@ -19,7 +19,7 @@ public:
 
 public:
     void add(const std::string& pattern);
-    const char** char_patterns();
+    const char** char_patterns() const;
 
 private:
     std::vector<char *> char_patterns_;
