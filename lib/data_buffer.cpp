@@ -17,6 +17,7 @@ bool data_buffer::read(std::string& buffer) const
         throw std::runtime_error(std::string("read error: ") + egpg_gpgme_strerror(ret));
 
     buffer.assign(raw_buffer, ret);
+
     return true;
 }
 
@@ -26,8 +27,10 @@ void data_buffer::write(const std::string& buffer)
 
     do {
         ssize_t ret = gpgme_data_write(data_, buffer.c_str() + written, total - written);
+
         if (ret < 0)
             throw std::runtime_error(std::string("write error: ") + egpg_gpgme_strerror(ret));
+
         written += ret;
 
     } while (written < total);
