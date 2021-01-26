@@ -12,8 +12,7 @@ namespace egpgcrypt {
 class key : private safe_egpg_object {
 
 public:
-    key();
-    key(gpgme_key_t raw_key);
+    key(gpgme_key_t raw_key = nullptr);
 
     // No need for operator=(), key_ is a smart pointer.
 

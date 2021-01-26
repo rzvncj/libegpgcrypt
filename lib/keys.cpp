@@ -3,11 +3,6 @@
 
 namespace egpgcrypt {
 
-key::key() : key_(static_cast<gpgme_key_t>(0), unref_key)
-{
-    // nothing
-}
-
 key::key(gpgme_key_t raw_key) : key_(raw_key, unref_key)
 {
 }
