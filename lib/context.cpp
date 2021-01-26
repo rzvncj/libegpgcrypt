@@ -52,24 +52,21 @@ void context::set_textmode(bool textmode)
 
 key context::find_key(const std::string& email, bool secret_key, bool for_encryption)
 {
-    key ret;
-
     gpgme_error_t err = gpgme_op_keylist_start(ctx_, email.c_str(), secret_key ? 1 : 0);
 
     if (err != GPG_ERR_NO_ERROR)
         throw std::runtime_error("key list error: " + egpg_gpgme_strerror(err));
 
+    key ret;
+
     while (err == GPG_ERR_NO_ERROR) {
         gpgme_key_t k = 0;
         err           = gpgme_op_keylist_next(ctx_, &k);
 
-        if (err == GPG_ERR_NO_ERROR) {
+        if (err == GPG_ERR_NO_ERROR
+            && !(k->revoked || k->expired || k->invalid || k->disabled || (for_encryption && !k->can_encrypt))) {
             ret = k;
-
-            if (k->revoked || k->expired || k->invalid || k->disabled || (for_encryption && !k->can_encrypt))
-                ret = 0;
-            else
-                break;
+            break;
         }
     }
 
