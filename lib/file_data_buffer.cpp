@@ -9,26 +9,26 @@
 
 namespace egpgcrypt {
 
-file_data_buffer::file_data_buffer() : fd_(-1)
+file_data_buffer::file_data_buffer()
 {
     init_fd();
     init_gpgme_data();
 }
 
-file_data_buffer::file_data_buffer(const data_buffer& copy_from) : fd_(-1)
+file_data_buffer::file_data_buffer(const data_buffer& copy_from)
 {
     init_fd();
     init_gpgme_data();
     cat(copy_from);
 }
 
-file_data_buffer::file_data_buffer(const std::string& filename) : fd_(-1)
+file_data_buffer::file_data_buffer(const std::string& filename)
 {
     init_fd(filename);
     init_gpgme_data();
 }
 
-file_data_buffer::file_data_buffer(const std::string& filename, const data_buffer& copy_from) : fd_(-1)
+file_data_buffer::file_data_buffer(const std::string& filename, const data_buffer& copy_from)
 {
     init_fd(filename);
     init_gpgme_data();

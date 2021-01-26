@@ -60,7 +60,7 @@ private:
     void init_gpgme_data();
 
 private:
-    int fd_;
+    int fd_ {-1};
 };
 
 }
