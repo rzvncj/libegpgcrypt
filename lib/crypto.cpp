@@ -39,7 +39,6 @@ void crypto::encrypt(const std::set<std::string>& email_addresses, std::set<std:
         throw std::runtime_error("key list error: " + egpg_gpgme_strerror(err));
 
     while (err == GPG_ERR_NO_ERROR) {
-
         gpgme_key_t key;
         err = gpgme_op_keylist_next(ctx.ctx(), &key);
 
@@ -94,7 +93,6 @@ void crypto::sign(const std::set<std::string>& email_addresses, const data_buffe
         throw std::runtime_error("key list error: " + egpg_gpgme_strerror(err));
 
     while (err == GPG_ERR_NO_ERROR) {
-
         gpgme_key_t key;
         err = gpgme_op_keylist_next(ctx.ctx(), &key);
 
@@ -209,7 +207,6 @@ bool crypto::import_key(const std::string& email, bool secret)
         throw std::runtime_error("key list error: " + egpg_gpgme_strerror(err));
 
     while (err == GPG_ERR_NO_ERROR) {
-
         gpgme_key_t key;
         err = gpgme_op_keylist_next(ctx.ctx(), &key);
 
