@@ -13,7 +13,7 @@ sys_initializer::sys_initializer()
     // http://www.gnupg.org/documentation/manuals/gpgme/Multi-Threading.html
     // http://www.gnupg.org/documentation/manuals/gpgme/Library-Version-Check.html
 
-    /* Initialize the locale environment.  */
+    // Initialize the locale environment.
     setlocale(LC_ALL, "");
     gpgme_check_version(nullptr);
     gpgme_set_locale(nullptr, LC_CTYPE, setlocale(LC_CTYPE, nullptr));
