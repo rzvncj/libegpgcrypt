@@ -53,7 +53,7 @@ void file_data_buffer::init_fd(const std::string& filename)
     fd_ = open(filename.c_str(), O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
 
     if (fd_ == -1)
-        throw std::runtime_error(std::string("failed to open ") + filename + ": " + egpg_errno_strerror(errno));
+        throw std::runtime_error("failed to open " + filename + ": " + egpg_errno_strerror(errno));
 }
 
 void file_data_buffer::init_gpgme_data()
@@ -61,7 +61,7 @@ void file_data_buffer::init_gpgme_data()
     gpgme_error_t ret = gpgme_data_new_from_fd(&data_, fd_);
 
     if (ret != GPG_ERR_NO_ERROR)
-        throw std::runtime_error(std::string("file data buffer creation failed: ") + egpg_gpgme_strerror(ret));
+        throw std::runtime_error("file data buffer creation failed: " + egpg_gpgme_strerror(ret));
 }
 
 file_data_buffer::~file_data_buffer()

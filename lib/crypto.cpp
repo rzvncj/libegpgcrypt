@@ -38,7 +38,7 @@ void crypto::encrypt(const std::set<std::string>& email_addresses, std::set<std:
     gpgme_error_t err = gpgme_op_keylist_ext_start(ctx.ctx(), ptns.char_patterns(), 0, 0);
 
     if (err != GPG_ERR_NO_ERROR)
-        throw runtime_error(string("key list error: ") + egpg_gpgme_strerror(err));
+        throw runtime_error("key list error: " + egpg_gpgme_strerror(err));
 
     while (err == GPG_ERR_NO_ERROR) {
 
@@ -68,7 +68,7 @@ void crypto::encrypt(const std::set<std::string>& email_addresses, std::set<std:
     err = gpgme_op_encrypt(ctx.ctx(), enc_keys.raw_keys(), GPGME_ENCRYPT_ALWAYS_TRUST, in.data(), out.data());
 
     if (err != GPG_ERR_NO_ERROR)
-        throw runtime_error(string("encrypt error: ") + egpg_gpgme_strerror(err));
+        throw runtime_error("encrypt error: " + egpg_gpgme_strerror(err));
 
     gpgme_encrypt_result_t result = gpgme_op_encrypt_result(ctx.ctx());
 
@@ -95,7 +95,7 @@ void crypto::sign(const std::set<std::string>& email_addresses, const data_buffe
     gpgme_error_t err = gpgme_op_keylist_ext_start(ctx.ctx(), ptns.char_patterns(), 0, 0);
 
     if (err != GPG_ERR_NO_ERROR)
-        throw runtime_error(string("key list error: ") + egpg_gpgme_strerror(err));
+        throw runtime_error("key list error: " + egpg_gpgme_strerror(err));
 
     while (err == GPG_ERR_NO_ERROR) {
 
@@ -119,14 +119,12 @@ void crypto::sign(const std::set<std::string>& email_addresses, const data_buffe
     gpgme_op_keylist_end(ctx.ctx());
 
     if (keys_added == 0)
-        throw runtime_error(
-            "key list error: no keys matched the"
-            " supplied patterns");
+        throw runtime_error("key list error: no keys matched the supplied patterns");
 
     err = gpgme_op_sign(ctx.ctx(), in.data(), out.data(), GPGME_SIG_MODE_DETACH);
 
     if (err != GPG_ERR_NO_ERROR)
-        throw runtime_error(string("sign error: ") + egpg_gpgme_strerror(err));
+        throw runtime_error("sign error: " + egpg_gpgme_strerror(err));
 
     gpgme_sign_result_t result = gpgme_op_sign_result(ctx.ctx());
 
@@ -147,7 +145,7 @@ bool crypto::verify(const data_buffer& signature, const data_buffer& text)
     gpgme_error_t err = gpgme_op_verify(ctx.ctx(), signature.data(), text.data(), nullptr);
 
     if (err != GPG_ERR_NO_ERROR)
-        throw runtime_error(string("signature verification error: ") + egpg_gpgme_strerror(err));
+        throw runtime_error("signature verification error: " + egpg_gpgme_strerror(err));
 
     gpgme_verify_result_t result = gpgme_op_verify_result(ctx.ctx());
 
@@ -211,12 +209,12 @@ bool crypto::import_key(const std::string& email, bool secret)
     gpgme_error_t err = gpgme_set_keylist_mode(ctx.ctx(), mode);
 
     if (err != GPG_ERR_NO_ERROR)
-        throw runtime_error(string("set key list mode error: ") + egpg_gpgme_strerror(err));
+        throw runtime_error("set key list mode error: " + egpg_gpgme_strerror(err));
 
     err = gpgme_op_keylist_start(ctx.ctx(), email.c_str(), 0);
 
     if (err != GPG_ERR_NO_ERROR)
-        throw runtime_error(string("key list error: ") + egpg_gpgme_strerror(err));
+        throw runtime_error("key list error: " + egpg_gpgme_strerror(err));
 
     while (err == GPG_ERR_NO_ERROR) {
 
@@ -242,12 +240,12 @@ bool crypto::import_key(const std::string& email, bool secret)
     err = gpgme_op_import_keys(ctx.ctx(), imp_keys.raw_keys());
 
     if (err != GPG_ERR_NO_ERROR)
-        throw runtime_error(string("key import error: ") + egpg_gpgme_strerror(err));
+        throw runtime_error("key import error: " + egpg_gpgme_strerror(err));
 
     gpgme_import_result_t result = gpgme_op_import_result(ctx.ctx());
 
     if (!result)
-        throw runtime_error(string("key import error: nullptr result"));
+        throw runtime_error("key import error: nullptr result");
 
     return true;
 }

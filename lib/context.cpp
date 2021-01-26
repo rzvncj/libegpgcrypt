@@ -10,10 +10,10 @@ context::context(gpgme_protocol_t protocol, const std::string& keys_directory) :
     gpgme_error_t ret = gpgme_new(&ctx_);
 
     if (ret != GPG_ERR_NO_ERROR)
-        throw std::runtime_error(std::string("context creation failed: ") + egpg_gpgme_strerror(ret));
+        throw std::runtime_error("context creation failed: " + egpg_gpgme_strerror(ret));
 
     if (gpgme_set_protocol(ctx_, protocol) != GPG_ERR_NO_ERROR)
-        throw std::runtime_error(std::string("could not set context protocol: ") + egpg_gpgme_strerror(ret));
+        throw std::runtime_error("could not set context protocol: " + egpg_gpgme_strerror(ret));
 
     set_keys_directory(keys_directory);
 }
@@ -56,7 +56,7 @@ key context::find_key(const std::string& email, bool secret_key, bool for_encryp
     gpgme_error_t err = gpgme_op_keylist_start(ctx_, email.c_str(), secret_key ? 1 : 0);
 
     if (err != GPG_ERR_NO_ERROR)
-        throw runtime_error(string("key list error: ") + egpg_gpgme_strerror(err));
+        throw runtime_error("key list error: " + egpg_gpgme_strerror(err));
 
     while (err == GPG_ERR_NO_ERROR) {
 

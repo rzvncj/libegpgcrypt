@@ -14,7 +14,7 @@ bool data_buffer::read(std::string& buffer) const
         return false; // done reading
 
     if (ret < 0)
-        throw std::runtime_error(std::string("read error: ") + egpg_gpgme_strerror(ret));
+        throw std::runtime_error("read error: " + egpg_gpgme_strerror(ret));
 
     buffer.assign(raw_buffer, ret);
 
@@ -29,7 +29,7 @@ void data_buffer::write(const std::string& buffer)
         ssize_t ret = gpgme_data_write(data_, buffer.c_str() + written, total - written);
 
         if (ret < 0)
-            throw std::runtime_error(std::string("write error: ") + egpg_gpgme_strerror(ret));
+            throw std::runtime_error("write error: " + egpg_gpgme_strerror(ret));
 
         written += ret;
 
@@ -39,7 +39,7 @@ void data_buffer::write(const std::string& buffer)
 void data_buffer::seek(off_t off, seek_pos pos) const
 {
     if (gpgme_data_seek(data_, off, pos) < 0)
-        throw std::runtime_error(std::string("seek error: ") + egpg_errno_strerror(errno));
+        throw std::runtime_error("seek error: " + egpg_errno_strerror(errno));
 }
 
 off_t data_buffer::tell() const
@@ -47,7 +47,7 @@ off_t data_buffer::tell() const
     off_t cur = gpgme_data_seek(data_, 0, SEEK_CUR);
 
     if (cur < 0)
-        throw std::runtime_error(std::string("seek error: ") + egpg_errno_strerror(errno));
+        throw std::runtime_error("seek error: " + egpg_errno_strerror(errno));
 
     return cur;
 }
