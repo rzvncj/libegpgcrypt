@@ -12,8 +12,12 @@ context::context(gpgme_protocol_t protocol, const std::string& keys_directory) :
     if (ret != GPG_ERR_NO_ERROR)
         throw std::runtime_error("context creation failed: " + egpg_gpgme_strerror(ret));
 
-    if (gpgme_set_protocol(ctx_, protocol) != GPG_ERR_NO_ERROR)
+    ret = gpgme_set_protocol(ctx_, protocol);
+
+    if (ret != GPG_ERR_NO_ERROR) {
+        gpgme_release(ctx_);
         throw std::runtime_error("could not set context protocol: " + egpg_gpgme_strerror(ret));
+    }
 
     set_keys_directory(keys_directory);
 }
