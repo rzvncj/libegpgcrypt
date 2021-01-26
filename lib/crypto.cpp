@@ -63,9 +63,7 @@ void crypto::encrypt(const std::set<std::string>& email_addresses, std::set<std:
     gpgme_op_keylist_end(ctx.ctx());
 
     if (enc_keys.empty())
-        throw runtime_error(
-            "key list error: no keys matched the"
-            " supplied patterns");
+        throw runtime_error("key list error: no keys matched the supplied patterns");
 
     err = gpgme_op_encrypt(ctx.ctx(), enc_keys.raw_keys(), GPGME_ENCRYPT_ALWAYS_TRUST, in.data(), out.data());
 
