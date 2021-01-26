@@ -53,14 +53,12 @@ void context::set_textmode(bool textmode)
 
 key context::find_key(const std::string& email, bool secret_key, bool for_encryption)
 {
-    using namespace std;
-
     key ret;
 
     gpgme_error_t err = gpgme_op_keylist_start(ctx_, email.c_str(), secret_key ? 1 : 0);
 
     if (err != GPG_ERR_NO_ERROR)
-        throw runtime_error("key list error: " + egpg_gpgme_strerror(err));
+        throw std::runtime_error("key list error: " + egpg_gpgme_strerror(err));
 
     while (err == GPG_ERR_NO_ERROR) {
 
