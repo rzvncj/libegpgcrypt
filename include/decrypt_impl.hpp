@@ -52,7 +52,7 @@ template <typename T> void crypto::decrypt(T passphrase_callback, const data_buf
     gpgme_error_t ret = gpgme_op_decrypt(ctx.ctx(), in.data(), out.data());
 
     if (ret != GPG_ERR_NO_ERROR)
-        throw std::runtime_error(std::string("decrypt error: ") + egpg_gpgme_strerror(ret));
+        throw std::runtime_error("decrypt error: " + egpg_gpgme_strerror(ret));
 }
 
 } // namespace egpgcrypt
