@@ -183,12 +183,7 @@ bool crypto::is_valid_key(gpgme_key_t key, bool secret, bool for_encryption) con
     if (protocol_ != GPGME_PROTOCOL_OpenPGP)
         return ret; // this is probably a hack
 
-    if (secret)
-        ret = (ret && key->secret);
-    else
-        ret = (ret && !key->secret);
-
-    return ret;
+    return secret ? (ret && key->secret) : (ret && !key->secret);
 }
 
 bool crypto::import_public_key(const std::string& email)
