@@ -28,7 +28,7 @@ public:
     std::string email() const;
 
 public:
-    operator bool() const { return key_ != 0; }
+    operator bool() const { return key_ != nullptr; }
 
 private:
     // Custom deleter.
