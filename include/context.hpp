@@ -2,13 +2,11 @@
 #define __CONTEXT_HPP_INCLUDED__
 
 #include <gpgme.h>
+#include <keys.hpp>
 #include <safe_egpg_object.hpp>
 #include <string>
 
 namespace egpgcrypt {
-
-// Forward declarations.
-class key;
 
 class context : private safe_egpg_object {
 
