@@ -30,10 +30,6 @@ public:
     operator bool() const { return key_ != nullptr; }
 
 private:
-    // Custom deleter.
-    static void unref_key(gpgme_key_t raw_key);
-
-private:
     std::shared_ptr<_gpgme_key> key_;
 };
 

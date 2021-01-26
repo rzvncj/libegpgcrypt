@@ -1,16 +1,21 @@
+#include <algorithm>
 #include <keys.hpp>
 #include <stdexcept>
+
+namespace {
+
+void unref_key(gpgme_key_t raw_key)
+{
+    if (raw_key)
+        gpgme_key_unref(raw_key);
+}
+
+} // end of anonymous namespace
 
 namespace egpgcrypt {
 
 key::key(gpgme_key_t raw_key) : key_(raw_key, unref_key)
 {
-}
-
-void key::unref_key(gpgme_key_t raw_key)
-{
-    if (raw_key)
-        gpgme_key_unref(raw_key);
 }
 
 bool key::revoked() const
@@ -64,10 +69,7 @@ std::string key::email() const
 
 keys::~keys()
 {
-    for (auto&& k : keys_) {
-        if (k)
-            gpgme_key_unref(k);
-    }
+    std::for_each(keys_.begin(), keys_.end(), unref_key);
 }
 
 void keys::add(gpgme_key_t key)
