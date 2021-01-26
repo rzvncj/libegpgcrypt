@@ -77,13 +77,11 @@ keys::~keys()
 
 void keys::add(gpgme_key_t key)
 {
-    if (keys_.empty()) {
+    if (keys_.empty())
         keys_.push_back(key);
-        keys_.push_back(nullptr);
-        return;
-    }
+    else
+        keys_.back() = key;
 
-    keys_[keys_.size() - 1] = key;
     keys_.push_back(nullptr);
 }
 
