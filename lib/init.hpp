@@ -10,8 +10,7 @@ public:
     // Init
     sys_initializer();
 
-    // Cleanup
-    ~sys_initializer();
+    // No cleanup needed for the moment.
 };
 
 }

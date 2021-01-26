@@ -28,9 +28,4 @@ sys_initializer::sys_initializer()
         throw std::runtime_error("no OpenPGP support");
 }
 
-sys_initializer::~sys_initializer()
-{
-    // nothing yet
-}
-
 } // namespace egpgcrypt
