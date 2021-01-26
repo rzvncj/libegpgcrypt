@@ -25,4 +25,4 @@ installed.
 
 ## Authors
 
-* **Razvan Cojocaru** [rzvncj](https://github.com/rzvncj)
+* **Răzvan Cojocaru** [rzvncj](https://github.com/rzvncj)
