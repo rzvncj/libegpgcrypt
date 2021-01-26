@@ -15,7 +15,7 @@ void patterns::add(const std::string& pattern)
     if (char_patterns_.empty())
         char_patterns_.push_back(strdup(pattern.c_str()));
     else
-        char_patterns_[char_patterns_.size() - 1] = strdup(pattern.c_str());
+        char_patterns_.back() = strdup(pattern.c_str());
 
     char_patterns_.push_back(nullptr);
 }
