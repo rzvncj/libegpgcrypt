@@ -61,7 +61,6 @@ key context::find_key(const std::string& email, bool secret_key, bool for_encryp
         throw std::runtime_error("key list error: " + egpg_gpgme_strerror(err));
 
     while (err == GPG_ERR_NO_ERROR) {
-
         gpgme_key_t k = 0;
         err           = gpgme_op_keylist_next(ctx_, &k);
 
