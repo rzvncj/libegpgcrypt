@@ -1,4 +1,4 @@
-AM_CPPFLAGS = $(GPGME_PTHREAD_CFLAGS)
+AM_CPPFLAGS = $(GPGME_CFLAGS)
 
 
 lib_LTLIBRARIES = libegpgcrypt.la
@@ -11,5 +11,5 @@ noinst_HEADERS = init.hpp patterns.hpp
 
 libegpgcrypt_la_CPPFLAGS = $(BOOST_CPPFLAGS)
 libegpgcrypt_la_LDFLAGS = $(BOOST_LDFLAGS)
-libegpgcrypt_la_LIBADD = $(GPGME_PTHREAD_LIBS)
+libegpgcrypt_la_LIBADD = $(GPGME_LIBS)
 

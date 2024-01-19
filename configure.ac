@@ -8,7 +8,7 @@ LT_INIT
 AC_PROG_CXX
 AX_CXX_COMPILE_STDCXX_14([noext], [mandatory])
 
-AM_PATH_GPGME_PTHREAD(1.3.0, [], AC_MSG_ERROR([Could not find GPGME]))
+AM_PATH_GPGME(1.3.0, [], AC_MSG_ERROR([Could not find GPGME]))
 
 CXXFLAGS="$CXXFLAGS -W -Wall -pthread $GPGME_CFLAGS"
 CFLAGS="$CFLAGS -W -Wall -pthread $GPGME_CFLAGS"
