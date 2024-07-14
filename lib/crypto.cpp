@@ -87,7 +87,7 @@ void crypto::sign(const std::set<std::string>& email_addresses, const data_buffe
     for (auto&& email_address : email_addresses)
         ptns.add(email_address);
 
-    gpgme_error_t err = gpgme_op_keylist_ext_start(ctx.ctx(), ptns.char_patterns(), 0, 0);
+    gpgme_error_t err = gpgme_op_keylist_ext_start(ctx.ctx(), ptns.char_patterns(), 1, 0);
 
     if (err != GPG_ERR_NO_ERROR)
         throw std::runtime_error("key list error: " + egpg_gpgme_strerror(err));
@@ -99,7 +99,7 @@ void crypto::sign(const std::set<std::string>& email_addresses, const data_buffe
         if (err != GPG_ERR_NO_ERROR)
             break;
 
-        if (!is_valid_key(key, false, false)) {
+        if (!is_valid_key(key, true, false)) {
             gpgme_key_unref(key);
             continue;
         }
@@ -160,7 +160,7 @@ bool crypto::has_private_key(const std::string& email) const
 {
     context ctx(protocol_);
 
-    return ctx.find_key(email, true, true);
+    return ctx.find_key(email, true, false);
 }
 
 bool crypto::is_valid_key(gpgme_key_t key, bool secret, bool for_encryption) const

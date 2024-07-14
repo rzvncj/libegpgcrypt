@@ -81,7 +81,7 @@ int main(int argc, char** argv)
         context ctx;
 
         if (!secret_pattern.empty()) {
-            key k = ctx.find_key(secret_pattern, true);
+            key k = ctx.find_key(secret_pattern, true, false);
             print_key(k);
         }
 
