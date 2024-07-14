@@ -6,7 +6,7 @@ AC_CONFIG_MACRO_DIR([m4])
 LT_INIT
 
 AC_PROG_CXX
-AX_CXX_COMPILE_STDCXX_14([noext], [mandatory])
+AX_CXX_COMPILE_STDCXX_17([noext], [mandatory])
 
 AM_PATH_GPG_ERROR(1.46, [], AC_MSG_ERROR([Could not find libgpg-error]))
 AM_PATH_GPGME(1.3.0, [], AC_MSG_ERROR([Could not find GPGME]))
