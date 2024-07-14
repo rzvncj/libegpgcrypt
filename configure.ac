@@ -8,10 +8,12 @@ LT_INIT
 AC_PROG_CXX
 AX_CXX_COMPILE_STDCXX_14([noext], [mandatory])
 
+AM_PATH_GPG_ERROR(1.46, [], AC_MSG_ERROR([Could not find libgpg-error]))
 AM_PATH_GPGME(1.3.0, [], AC_MSG_ERROR([Could not find GPGME]))
 
-CXXFLAGS="$CXXFLAGS -W -Wall -pthread $GPGME_CFLAGS"
-CFLAGS="$CFLAGS -W -Wall -pthread $GPGME_CFLAGS"
+CXXFLAGS="$CXXFLAGS -W -Wall -pthread $GPGME_CFLAGS $GPG_ERROR_CFLAGS"
+CFLAGS="$CFLAGS -W -Wall -pthread $GPGME_CFLAGS $GPG_ERROR_CFLAGS"
+LIBS="$LIBS $GPGME_LIBS"
 
 AC_ARG_ENABLE(debug,
 	      [  --enable-debug          compile with gdb debug information.],
